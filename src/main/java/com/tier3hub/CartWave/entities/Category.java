@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "category")
@@ -35,4 +36,7 @@ public class Category {
 
     @Column(name = "updated_at",columnDefinition = "DATE")
     private LocalDate updatedAt;
+
+    @OneToMany(mappedBy = "category",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    private List<Product> product;
 }
