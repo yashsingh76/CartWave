@@ -49,4 +49,8 @@ public class Product {
     @Column(name = "updated_at",columnDefinition = "DATE")
     private LocalDate updatedAt;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private Category category;
+
 }
