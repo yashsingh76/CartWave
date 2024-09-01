@@ -1,16 +1,15 @@
 package com.tier3hub.CartWave.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 
 
 @Entity
 @Table(name = "product")
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Product {
@@ -41,7 +40,7 @@ public class Product {
     private double discount;
 
     @Column(name = "status")
-    private Boolean status;
+    private boolean status;
 
     @Column(name = "created_at",columnDefinition = "DATE")
     private LocalDate createdAt;
@@ -52,5 +51,6 @@ public class Product {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
+
 
 }
