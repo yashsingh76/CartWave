@@ -38,5 +38,5 @@ public class Category {
     private LocalDate updatedAt;
 
     @OneToMany(mappedBy = "category",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    private List<Product> product;
+    private List<Product> products;
 }

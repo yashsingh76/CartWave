@@ -16,5 +16,5 @@ public interface CategoryService {
 
     void deleteCategory(Integer id);
 
-    List<CategoryResponseDto> getAllCategories();
+    List<CategoryResponseDto> getAllCategories(Integer pageNumber,Integer pageSize, String sortBy, String sortOrder);
 }

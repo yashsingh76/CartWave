@@ -9,9 +9,14 @@ import com.tier3hub.CartWave.repositories.CategoryRepo;
 import com.tier3hub.CartWave.service.CategoryService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -56,9 +61,16 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<CategoryResponseDto> getAllCategories() {
-        List<Category> categories = categoryRepo.findAll();
-        List<CategoryResponseDto> catDto = categories.stream().map((cat)-> modelMapper.map(cat, CategoryResponseDto.class)).collect(Collectors.toList());
-        return catDto;
+    public List<CategoryResponseDto> getAllCategories(Integer pageNumber, Integer pageSize, String sortBy, String sortOrder) {
+
+        Sort sort = sortOrder.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+        Pageable pageDetails = PageRequest.of(pageNumber,pageSize,sort);
+        Page<Category> categories = categoryRepo.findAll(pageDetails);
+        if (categories.isEmpty())
+        {
+            throw  new RuntimeException("Categories are not created");
+        }
+
+        return categories.stream().map(category -> modelMapper.map(category,CategoryResponseDto.class)).collect(Collectors.toList());
     }
 }

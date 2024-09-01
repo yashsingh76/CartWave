@@ -4,6 +4,7 @@ import com.tier3hub.CartWave.dto.CategoryResponseDto;
 import com.tier3hub.CartWave.dto.CreateCategoryDto;
 import com.tier3hub.CartWave.dto.UpdateCategoryDto;
 import com.tier3hub.CartWave.service.CategoryService;
+import com.tier3hub.CartWave.utils.AppConstants;
 import com.tier3hub.CartWave.utils.ResponseHandler;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,8 +46,13 @@ public class CategoryController {
     }
 
     @GetMapping("/users/getall")
-    public ResponseEntity<Object> getAllCategories(){
-        List<CategoryResponseDto> categories = categoryService.getAllCategories();
+    public ResponseEntity<Object> getAllCategories(
+            @RequestParam (name = "pageNumber", defaultValue = AppConstants.pageNumber, required = false) Integer pageNumber,
+            @RequestParam (name ="pageSize" ,defaultValue = AppConstants.pageSize, required = false) Integer pageSize,
+            @RequestParam (name ="sortBy" , defaultValue = AppConstants.sortBy , required = false) String sortBy,
+            @RequestParam (name ="sortOrder" , defaultValue = AppConstants.sortOrder , required = false) String sortOrder
+    ){
+        List<CategoryResponseDto> categories = categoryService.getAllCategories(pageNumber, pageSize, sortBy, sortOrder);
         return ResponseHandler.generateResponse("Categories fetched successfully",HttpStatus.FOUND,categories);
     }
 }
