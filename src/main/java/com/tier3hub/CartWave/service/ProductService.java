@@ -18,5 +18,7 @@ public interface ProductService{
 
     List<ProductResponse> getAllProducts(Integer pageNumber, Integer pageSize, String sortBy, String sortOrder);
 
-    /*List<ProductResponse> getProductByCategory(Integer categoryId, Integer pageNumber, Integer pageSize, String sortBy, String sortOrder);*/
+    List<ProductResponse> getProductByCategory(Integer categoryId, Integer pageNumber, Integer pageSize, String sortBy, String sortOrder);
+
+    List<ProductResponse> getProductsByName(String keyword, Integer pageNumber, Integer pageSize, String sortBy, String sortOrder);
 }

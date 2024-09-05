@@ -88,22 +88,31 @@ public class ProductServiceImpl implements ProductService {
         return productResponse;
     }
 
-  /*  @Override
+    @Override
     public List<ProductResponse> getProductByCategory(Integer categoryId, Integer pageNumber, Integer pageSize, String sortBy, String sortOrder) {
+        Category category = categoryRepo.findById(categoryId).orElseThrow(()-> new ResourceNotFoundException("Category not found"));
         Sort sort = sortBy.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending():Sort.by(sortBy).descending();
         Pageable page = PageRequest.of(pageNumber,pageSize,sort);
-        Page<Product> products = productRepo.findAll(page);
+        Page<Product> products = productRepo.findByCategory(category,page);
         if(products.isEmpty()){
             throw new RuntimeException("Products are not created");
         }
-        List<Product> productList = products.getContent();
-        for (Product product : productList){
-            if(product.getCategory().getId() == categoryId){
-                productList.add(product);
-            }
+
+        return products.stream().map(product -> modelMapper.map(product,ProductResponse.class)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProductResponse> getProductsByName(String keyword, Integer pageNumber, Integer pageSize, String sortBy, String sortOrder) {
+        Sort sort = sortBy.equalsIgnoreCase("asc")?Sort.by(sortBy).ascending():Sort.by(sortBy).descending();
+        Pageable page = PageRequest.of(pageNumber,pageSize,sort);
+        Page<Product> products = productRepo.findByName(keyword,page);
+        if (products.isEmpty())
+        {
+            throw new RuntimeException("Products are not found with this name");
         }
-        return productList.stream().map(product -> modelMapper.map(product,ProductResponse.class)).collect(Collectors.toList());
-    }*/
+
+        return products.stream().map(product -> modelMapper.map(product,ProductResponse.class)).collect(Collectors.toList());
+    }
 
 
 }
