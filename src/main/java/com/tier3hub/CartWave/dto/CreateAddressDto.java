@@ -22,7 +22,7 @@ public class CreateAddressDto {
     private String state;
 
     @NotBlank(message = "postal code is required")
-    private String postalcode;
+    private String postalCode;
 
     @NotBlank(message = "country is required")
     private String country;

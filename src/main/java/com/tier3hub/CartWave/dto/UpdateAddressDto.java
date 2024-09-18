@@ -24,8 +24,8 @@ public class UpdateAddressDto {
     @NotBlank(message = "State is required")
     private String state;
 
-    @NotBlank(message = "Postalcode is required")
-    private String postalcode;
+    @NotBlank(message = "PostalCode is required")
+    private String postalCode;
 
     @NotBlank(message = "Country is required")
     private String country;

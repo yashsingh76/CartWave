@@ -29,8 +29,10 @@ public class Address {
     @Column(nullable = false)
     private String state;
 
+    private String postalCode;
+
     @Column(nullable = false)
-    private String postalcode;
+    private String country;
 
     @Column(name = "created_At",columnDefinition = "DATE")
     private LocalDateTime createdAt;

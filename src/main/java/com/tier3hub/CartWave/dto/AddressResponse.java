@@ -16,7 +16,7 @@ public class AddressResponse {
     private String addressLine2;
     private String city;
     private String state;
-    private String postalcode;
+    private String postalCode;
     private String country;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
